@@ -6,7 +6,7 @@
 
 | Skill | 说明 |
 |---|---|
-| `jf-analysis` | 使用立体分析法生成结构化 Markdown 与 PDF 深度研究报告。 |
+| `jf-analysis` | 使用立体分析法生成证据可追溯、可验证的 Markdown、HTML 与 PDF 深度研究报告。 |
 | `excellent-operations-ppt` | 基于 DESIGN.md 生成规范企业汇报材料，同时输出 PPTX 和 HTML 预览。 |
 | `architecture-map` | 将报告、概念、业务、系统、行业生态或截图转化为可独立阅读的一页式架构图。 |
 
@@ -18,7 +18,7 @@
 - **Y 轴：多因素并行展开**：在关键时间截面还原竞品、资本、技术、市场、政策、人物、舆论等力量如何同时作用。
 - **Z 轴：力量内部机制拆解**：深入拆解核心力量的内部结构、动机、约束条件和相互影响，解释“为什么会这样走”。
 
-默认交付为结构化 Markdown 研究报告和由 `jf-analysis/scripts/md_to_pdf.py` 生成的 PDF 报告。
+默认交付为结构化 Markdown、HTML 和 PDF 报告。`jf-analysis/scripts/validate_report.py` 负责质量门槛校验，`jf-analysis/scripts/render_report.py` 负责跨平台渲染；`md_to_pdf.py` 保留为兼容入口。
 
 ## excellent-operations-ppt：卓越运营 PPT
 

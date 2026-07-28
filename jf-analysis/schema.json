@@ -1,284 +1,684 @@
 {
-  "$schema": "立体分析法 / 3D Analysis Framework",
-  "version": "2.0",
-  "description": "用于系统研究产品、公司、技术、概念、人物或复杂事件的三轴分析框架。X轴追踪时间线因果链，Y轴还原关键节点力场，Z轴拆解核心力量内部机制，最后在三轴交汇处产出判断、未来推演和必要的概念图/分析图表。",
-  "meta": {
-    "研究对象": {
-      "名称": "string — 研究对象名称",
-      "类型": "enum: 产品 | 公司 | 技术 | 概念 | 人物 | 事件 | 其他",
-      "一句话定义": "string — 用一句话说清楚它是什么以及为什么值得研究",
-      "所属领域": "string — 行业、学科、赛道或事件语境",
-      "研究发起日期": "date — 开始研究的日期",
-      "时间基准": "date — 判断'当前/最新/最近'时采用的日期",
-      "研究者": "string — 谁在做这个研究",
-      "研究动机": "string — 为什么要研究它；未指定则标注'未指定'",
-      "特别关注点": ["string — 用户指定或研究中识别的重点问题"]
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.codex.invalid/jf-analysis/research-state.schema.json",
+  "title": "jf-analysis structured research state",
+  "description": "立体分析研究通过证据门控后的可选机器可读状态。SKILL.md 是流程真相源，本 Schema 只约束结构化状态。",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "meta",
+    "search_questions",
+    "sources",
+    "claims",
+    "analysis",
+    "future",
+    "visuals"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "3.0"
     },
-    "事实边界": {
-      "已确认事实": ["string — 有可靠来源支撑的关键事实"],
-      "冲突信息": ["string — 不同来源存在差异的信息及差异点"],
-      "信息暂缺": ["string — 未找到可靠来源的信息"],
-      "推测清单": ["string — 推测内容及依据"]
-    }
-  },
-  "信息收集": {
-    "来源优先级": [
-      "官方公告、官方博客、Release Notes、GitHub、财报、监管文件、论文、创始人/核心人物访谈",
-      "权威媒体原创报道、分析师报告、行业协会数据",
-      "用户社区、论坛、Reddit、Hacker News、知乎、应用商店评价",
-      "转载、聚合和二手摘要仅作线索，不作为单独证据"
-    ],
-    "搜索分工": {
-      "X轴信息": ["起源", "关键事件", "版本迭代", "融资", "组织变化", "战略转向", "危机", "外部冲击"],
-      "Y轴信息": ["竞品", "资本", "技术", "市场", "政策", "人物/组织", "舆论/社区", "供应链/生态", "宏观/地缘/文化"],
-      "Z轴信息": ["内部结构", "行为动机", "约束条件", "互动关系", "关键证据", "证据等级"]
+    "meta": {
+      "$ref": "#/$defs/meta"
     },
-    "充分性自检": {
-      "X轴": "是否能讲出完整因果链，每个关键节点的'因为→所以'是否成立",
-      "Y轴": "是否识别关键截面上的主要力量及其交织关系",
-      "Z轴": "是否能对核心力量拆出动机、约束、内部结构和互动关系",
-      "来源": "关键事实是否有可靠来源支撑，冲突和不确定是否标注"
-    }
-  },
-  "视觉表达": {
-    "description": "在正式写作前规划图表、概念图和结构图。图表必须服务分析判断，不能作为装饰。",
-    "图表预算": {
-      "复杂度": "enum: 简短对象 | 标准分析 | 复杂行业/多方博弈",
-      "建议数量": "string — 例如 2-3张、4-6张、6-8张",
-      "选择理由": "string — 为什么需要这些图表，以及哪些内容不适合图形化"
-    },
-    "图表清单": [
-      {
-        "图表名称": "string — 图表标题",
-        "图表类型": "enum: 时间轴 | 阶段演进图 | 力场图 | 利益相关方网络 | 二维矩阵 | 机制链 | 反馈回路 | 飞轮 | 漏斗 | 证据矩阵 | 驱动变量地图 | 三轴概念图 | 其他",
-        "服务章节": "enum: 核心结论 | X轴 | Y轴 | Z轴 | 三轴交汇 | 未来走势 | 附录",
-        "回答的问题": "string — 这张图帮助读者理解什么",
-        "主要节点或变量": ["string"],
-        "证据来源": ["string — 支撑图中节点、方向或数值的来源"],
-        "是否量化": "boolean",
-        "量化口径": "string — 若无量化则说明不适用",
-        "不确定性": "string — 图表可能误导或需要降级解释的地方"
-      }
-    ],
-    "渲染要求": {
-      "首选格式": "inline SVG 或已渲染图片",
-      "禁止": ["未渲染的 Mermaid 源码", "无证据支撑的数值图", "装饰性图表", "文字过密导致不可读的图"],
-      "每图必须包含": ["编号", "图注", "解释段", "证据边界"]
-    }
-  },
-  "X轴_时间线因果链": {
-    "description": "从起源到当下的因果链叙事。每个节点回答：发生了什么、为什么发生、为什么重要、如何导向下一步。",
-    "起源": {
-      "诞生背景": "string — 时代背景、行业状态、技术环境和需求缺口",
-      "诞生动机": "string — 为什么会出现，解决什么问题，填补什么空缺",
-      "创始人或发起者": {
-        "是谁": ["string"],
-        "背景经历": "string — 这些人之前做过什么，为什么是他们来做",
-        "初始愿景": "string — 他们最开始想做什么，和后来是否一致"
-      },
-      "诞生时间": "date",
-      "诞生地点或环境": "string",
-      "早期形态": "string — 最初是什么样，与现在有什么本质不同",
-      "直接触发因素": "string — 促成诞生的导火索"
-    },
-    "因果链节点": [
-      {
-        "时间": "date|string — 精确日期或时间范围",
-        "节点类型": "enum: 决策节点 | 事件节点 | 外部冲击 | 内部变化 | 里程碑 | 危机节点 | 监管节点",
-        "事件名称": "string — 节点简称",
-        "发生了什么": "string — 事实描述",
-        "为什么发生": "string — 直接原因、背景约束和前置条件",
-        "为什么重要": "string — 改变了资源、认知、路径或竞争位置中的哪一项",
-        "导向机制": "string — 通过什么机制导向下一节点",
-        "推动力": ["string — 主动推动该节点的力量"],
-        "阻力": ["string — 阻碍或制约该节点的力量"],
-        "结果与影响": {
-          "直接影响": "string",
-          "间接影响": "string",
-          "意外后果": "string"
+    "search_questions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "facts",
+        "causes_and_mechanisms",
+        "counterevidence"
+      ],
+      "properties": {
+        "facts": {
+          "$ref": "#/$defs/nonEmptyStringArray"
         },
-        "证据来源": ["string — URL、文件、访谈或论文"],
-        "是否关键节点": "boolean",
-        "关键理由": "string — 为什么它改变了走向"
-      }
-    ],
-    "阶段划分": [
-      {
-        "阶段名称": "string — 萌芽期、增长期、转型期、成熟期等",
-        "时间跨度": "string — 起止时间",
-        "核心驱动力": "string",
-        "核心矛盾": "string",
-        "关键人物": ["string"],
-        "关键决策": ["string"],
-        "阶段成果": "string"
-      }
-    ],
-    "叙事主线": {
-      "一句话概括": "string — 概括整个发展历程的核心叙事",
-      "反复出现的主题": ["string — 在不同阶段重复出现的模式、矛盾或主题"],
-      "最大转折": "string — 影响最大的转折节点",
-      "未解问题": ["string — 仍需进一步验证的问题"]
-    },
-    "推荐图表": {
-      "是否需要": "boolean",
-      "图表类型": "enum: 时间轴 | 阶段演进图 | 关键转折链 | S曲线 | 不需要",
-      "应呈现的节点": ["string — 只列真正改变路径的关键节点"],
-      "图表解释": "string — 图表要支撑的X轴判断"
-    }
-  },
-  "Y轴_关键节点力场": {
-    "description": "在X轴关键节点上，还原当时同时在场的多股力量以及它们如何交织、博弈、共振或相互抵消。",
-    "力量类型清单": {
-      "竞品力量": ["竞品路线", "竞品资源", "用户争夺", "战略转向", "直接碰撞"],
-      "资本力量": ["融资", "估值", "现金流", "投资方诉求", "控制权", "退出路径"],
-      "技术力量": ["底层技术成熟度", "技术路线", "专利/IP", "人才供给", "基础设施", "技术债"],
-      "市场力量": ["需求强弱", "定价", "渠道", "获客", "留存", "渗透率"],
-      "政策力量": ["监管", "牌照", "补贴/限制", "诉讼", "数据/隐私", "贸易政策"],
-      "人物组织力量": ["创始人", "核心团队", "组织文化", "人事变动", "决策风格", "人才密度"],
-      "舆论社区力量": ["媒体叙事", "社区讨论", "用户评价", "意见领袖", "危机传播", "品牌认知"],
-      "供应链生态力量": ["供应商", "渠道", "平台依赖", "合作伙伴", "关键资源", "价值分配"],
-      "宏观地缘文化力量": ["经济周期", "利率", "汇率", "国际关系", "社会趋势", "人口结构", "ESG/文化偏好"]
-    },
-    "关键截面": [
-      {
-        "对应X轴节点": "string — 对应哪个因果链节点",
-        "截面为何关键": "string — 为什么选择这个时间截面",
-        "主要力量": ["enum — 选择真正起作用的2-5种力量"],
-        "力场描述": "string — 当时的局面与主要张力",
-        "交织关系": "string — 这些力量如何博弈、共振或互相牵制",
-        "主动权判断": "string — 谁在主动塑造格局，谁在被动响应，谁误判了",
-        "被忽略变量": "string — 只看研究对象本身容易漏掉的外部压力或隐性力量",
-        "对X轴影响": "string — 该力场如何改变后续因果链",
-        "证据来源": ["string"],
-        "推荐图表": {
-          "是否需要": "boolean",
-          "图表类型": "enum: 力场图 | 利益相关方网络 | 四象限矩阵 | 压力响应图 | 不需要",
-          "关键主体": ["string"],
-          "关系方向": ["string — 例如 A施压B、C放大D、E制约F"],
-          "图表解释": "string — 图表要支撑的Y轴判断"
+        "causes_and_mechanisms": {
+          "$ref": "#/$defs/nonEmptyStringArray"
+        },
+        "counterevidence": {
+          "$ref": "#/$defs/nonEmptyStringArray"
         }
       }
-    ]
-  },
-  "Z轴_力量内部机制拆解": {
-    "description": "对Y轴中最关键的力量做内部机制拆解。目标不是罗列资料，而是解释这些力量为什么这样行动、受到什么约束、如何影响其他力量。",
-    "力量拆解节点": [
-      {
-        "对应X轴节点": "string — 对应哪个因果链节点或Y轴截面",
-        "选择理由": "string — 为什么拆这些力量而不是其他力量",
-        "拆解对象": [
-          {
-            "力量类型": "enum: 竞品力量 | 资本力量 | 技术力量 | 市场力量 | 政策力量 | 人物组织力量 | 舆论社区力量 | 供应链生态力量 | 宏观地缘文化力量",
-            "力量名称": "string — 具体主体或机制名称",
-            "内部结构": "string — 内部玩家、派别、资源、利益或约束",
-            "行为动机": "string — 为什么这样行动，短期收益和长期目标是什么",
-            "约束条件": "string — 技术、资金、组织、法律、路径依赖、声誉等限制",
-            "互动关系": "string — 如何影响其他力量，又如何被其他力量改变",
-            "路径锁定机制": "string — 是否存在网络效应、沉没成本、生态绑定、技术债等难以逆转机制",
-            "证据等级": "enum: 一手材料 | 可靠二手 | 社区证据 | 推测",
-            "关键证据": ["string — 访谈、公告、财报、论文、issue、报道等"],
-            "不确定性": "string — 信息不足、冲突或推测边界",
-            "推荐图表": {
-              "是否需要": "boolean",
-              "图表类型": "enum: 因果链 | 反馈回路 | 飞轮 | 反飞轮 | 漏斗 | 约束结构图 | 不需要",
-              "输入": ["string"],
-              "约束": ["string"],
-              "输出": ["string"],
-              "反馈": ["string"],
-              "图表解释": "string — 图表要支撑的Z轴机制判断"
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/source"
+      }
+    },
+    "claims": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/claim"
+      }
+    },
+    "analysis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "x_axis",
+        "y_axis",
+        "z_axis",
+        "synthesis"
+      ],
+      "properties": {
+        "x_axis": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "narrative",
+            "turning_points"
+          ],
+          "properties": {
+            "narrative": {
+              "$ref": "#/$defs/nonEmptyString"
+            },
+            "turning_points": {
+              "type": "array",
+              "minItems": 1,
+              "maxItems": 7,
+              "items": {
+                "$ref": "#/$defs/turningPoint"
+              }
             }
           }
-        ]
+        },
+        "y_axis": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 4,
+          "items": {
+            "$ref": "#/$defs/forceField"
+          }
+        },
+        "z_axis": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 5,
+          "items": {
+            "$ref": "#/$defs/mechanism"
+          }
+        },
+        "synthesis": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/insight"
+          }
+        }
       }
-    ],
-    "拆解质量评估": {
-      "动机清晰度": "enum: 高 | 中 | 低",
-      "约束完整度": "enum: 高 | 中 | 低",
-      "互动关系清晰度": "enum: 高 | 中 | 低",
-      "证据充分度": "enum: 高 | 中 | 低",
-      "是否避免资料堆砌": "boolean"
+    },
+    "future": {
+      "$ref": "#/$defs/future"
+    },
+    "visuals": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/visual"
+      }
+    },
+    "gaps": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/nonEmptyString"
+      },
+      "default": []
     }
   },
-  "三轴交汇_洞察": {
-    "description": "把X/Y/Z三轴信息交叉，产出超越单轴描述的新判断、根源解释和未来推演。",
-    "核心洞察": [
-      {
-        "洞察": "string — 一句话判断",
-        "基于什么": {
-          "X轴依据": ["string"],
-          "Y轴依据": ["string"],
-          "Z轴依据": ["string"]
-        },
-        "置信度": "enum: 高 | 中 | 低",
-        "可能错误的地方": "string — 如果判断失效，最可能是哪项前提错了"
-      }
-    ],
-    "历史如何塑造今天": {
-      "路径选择": ["string — 哪些早期决策塑造了当下位置"],
-      "力场影响": ["string — 哪些力量加速、延缓或扭转了路径"],
-      "机制解释": ["string — 哪些内部机制解释了表面叙事解释不了的现象"]
+  "$defs": {
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1
     },
-    "优势劣势根源": {
-      "核心优势": [
-        {
-          "优势": "string",
-          "历史根源": "string",
-          "机制根源": "string"
-        }
+    "nonEmptyStringArray": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/nonEmptyString"
+      }
+    },
+    "sourceId": {
+      "type": "string",
+      "pattern": "^S[0-9]{2,}$"
+    },
+    "claimId": {
+      "type": "string",
+      "pattern": "^C[0-9]{2,}$"
+    },
+    "meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "subject",
+        "subject_type",
+        "research_question",
+        "started_on",
+        "time_baseline",
+        "scope"
       ],
-      "核心劣势": [
+      "properties": {
+        "subject": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "subject_type": {
+          "enum": [
+            "product",
+            "company",
+            "technology",
+            "concept",
+            "person",
+            "event",
+            "industry",
+            "other"
+          ]
+        },
+        "research_question": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "motivation": {
+          "type": "string"
+        },
+        "focus": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/nonEmptyString"
+          }
+        },
+        "started_on": {
+          "type": "string",
+          "format": "date"
+        },
+        "time_baseline": {
+          "type": "string",
+          "format": "date"
+        },
+        "scope": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_id",
+        "title",
+        "publisher",
+        "location",
+        "accessed_on",
+        "provenance",
+        "evidence_roles",
+        "independence",
+        "limitations"
+      ],
+      "properties": {
+        "source_id": {
+          "$ref": "#/$defs/sourceId"
+        },
+        "title": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "publisher": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "location": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "published_on": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "accessed_on": {
+          "type": "string",
+          "format": "date"
+        },
+        "provenance": {
+          "enum": [
+            "primary",
+            "independent-secondary",
+            "community",
+            "lead-only"
+          ]
+        },
+        "evidence_roles": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "fact",
+              "behavior",
+              "context",
+              "user-voice",
+              "counterevidence"
+            ]
+          }
+        },
+        "independence": {
+          "enum": [
+            "independent",
+            "shared-origin",
+            "unknown"
+          ]
+        },
+        "limitations": {
+          "type": "string"
+        }
+      }
+    },
+    "claim": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "claim_id",
+        "statement",
+        "claim_type",
+        "importance",
+        "supporting_source_ids",
+        "counterevidence",
+        "independence",
+        "confidence",
+        "evidence_gap",
+        "disconfirmation_condition"
+      ],
+      "properties": {
+        "claim_id": {
+          "$ref": "#/$defs/claimId"
+        },
+        "statement": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "claim_type": {
+          "enum": [
+            "fact",
+            "causal",
+            "mechanism",
+            "market",
+            "forecast"
+          ]
+        },
+        "importance": {
+          "enum": [
+            "load-bearing",
+            "supporting"
+          ]
+        },
+        "supporting_source_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceId"
+          }
+        },
+        "counterevidence": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "source_ids",
+            "search_note"
+          ],
+          "properties": {
+            "source_ids": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/sourceId"
+              }
+            },
+            "search_note": {
+              "type": "string"
+            }
+          }
+        },
+        "independence": {
+          "enum": [
+            "independent",
+            "shared-origin",
+            "mixed",
+            "unknown"
+          ]
+        },
+        "confidence": {
+          "enum": [
+            "high",
+            "medium",
+            "low"
+          ]
+        },
+        "evidence_gap": {
+          "type": "string"
+        },
+        "disconfirmation_condition": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "turningPoint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "time",
+        "event",
+        "why_it_happened",
+        "why_it_mattered",
+        "transition_mechanism",
+        "claim_ids"
+      ],
+      "properties": {
+        "time": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "event": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "why_it_happened": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "why_it_mattered": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "transition_mechanism": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "claim_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          }
+        }
+      }
+    },
+    "forceField": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "time_slice",
+        "central_tension",
+        "forces",
+        "interactions",
+        "agency",
+        "overlooked_variable",
+        "path_effect",
+        "claim_ids"
+      ],
+      "properties": {
+        "time_slice": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "central_tension": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "forces": {
+          "$ref": "#/$defs/nonEmptyStringArray"
+        },
+        "interactions": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "agency": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "overlooked_variable": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "path_effect": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "claim_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          }
+        }
+      }
+    },
+    "mechanism": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "internal_structure",
+        "motivation",
+        "constraints",
+        "interactions",
+        "alternative_explanation",
+        "explanatory_gain",
+        "claim_ids"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "internal_structure": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "motivation": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "constraints": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "interactions": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "alternative_explanation": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "explanatory_gain": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "claim_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/claimId"
+          }
+        }
+      }
+    },
+    "insight": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "insight",
+        "x_basis",
+        "y_basis",
+        "z_basis",
+        "alternative_explanation",
+        "confidence",
+        "disconfirmation_condition"
+      ],
+      "properties": {
+        "insight": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "x_basis": {
+          "$ref": "#/$defs/nonEmptyStringArray"
+        },
+        "y_basis": {
+          "$ref": "#/$defs/nonEmptyStringArray"
+        },
+        "z_basis": {
+          "$ref": "#/$defs/nonEmptyStringArray"
+        },
+        "alternative_explanation": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "confidence": {
+          "enum": [
+            "high",
+            "medium",
+            "low"
+          ]
+        },
+        "disconfirmation_condition": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "future": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "mode",
+        "drivers",
+        "baseline",
+        "leading_indicators",
+        "alternative_explanation",
+        "disconfirmation_condition"
+      ],
+      "properties": {
+        "mode": {
+          "enum": [
+            "baseline",
+            "scenario-matrix",
+            "indicators-only"
+          ]
+        },
+        "drivers": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 6,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "name",
+              "impact",
+              "uncertainty"
+            ],
+            "properties": {
+              "name": {
+                "$ref": "#/$defs/nonEmptyString"
+              },
+              "impact": {
+                "enum": [
+                  "high",
+                  "medium",
+                  "low"
+                ]
+              },
+              "uncertainty": {
+                "enum": [
+                  "high",
+                  "medium",
+                  "low"
+                ]
+              }
+            }
+          }
+        },
+        "baseline": {
+          "type": "string"
+        },
+        "scenario_axes": {
+          "type": "array",
+          "maxItems": 2,
+          "items": {
+            "$ref": "#/$defs/nonEmptyString"
+          }
+        },
+        "leading_indicators": {
+          "$ref": "#/$defs/nonEmptyStringArray"
+        },
+        "alternative_explanation": {
+          "type": "string"
+        },
+        "disconfirmation_condition": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      },
+      "allOf": [
         {
-          "劣势": "string",
-          "历史根源": "string",
-          "机制根源": "string",
-          "是否曾经是好决策": "boolean|string"
+          "if": {
+            "properties": {
+              "mode": {
+                "const": "scenario-matrix"
+              }
+            },
+            "required": [
+              "mode"
+            ]
+          },
+          "then": {
+            "required": [
+              "scenario_axes"
+            ],
+            "properties": {
+              "scenario_axes": {
+                "minItems": 2,
+                "maxItems": 2
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "mode": {
+                "const": "baseline"
+              }
+            },
+            "required": [
+              "mode"
+            ]
+          },
+          "then": {
+            "properties": {
+              "baseline": {
+                "minLength": 1
+              }
+            }
+          }
         }
       ]
     },
-    "三轴概念图": {
-      "是否生成": "boolean",
-      "省略理由": "string — 如不生成，说明为什么图表没有信息增量",
-      "中心判断": "string — 用一句机制命名汇总X/Y/Z交汇后的核心解释",
-      "X轴节点": ["string — 关键路径、阶段或转折"],
-      "Y轴节点": ["string — 关键力场、主体或压力"],
-      "Z轴节点": ["string — 底层机制、约束或反馈"],
-      "汇流关系": ["string — X/Y/Z如何共同导向中心判断"],
-      "图表类型": "enum: 三轴坐标 | 三层漏斗 | 中心辐射图 | 因果汇流图 | 路径-力场-机制三栏模型 | 其他",
-      "图后解释": "string — 图后1-2段应解释的核心内容",
-      "最大不确定性": "string — 如果概念图判断失效，最可能错在哪个前提"
-    },
-    "未来推演": {
-      "当前驱动力": ["string"],
-      "主要风险": ["string"],
-      "最可能的剧本": {
-        "描述": "string",
-        "时间窗口": "string",
-        "关键前提": ["string"],
-        "早期信号": ["string"]
-      },
-      "最危险的剧本": {
-        "描述": "string",
-        "触发条件": ["string"],
-        "早期信号": ["string"],
-        "缓释因素": ["string"]
-      },
-      "最乐观的剧本": {
-        "描述": "string",
-        "实现条件": ["string"],
-        "早期信号": ["string"]
-      },
-      "剧本切换条件": "string — 哪些条件变化会让剧本切换"
+    "visual": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "figure_id",
+        "title",
+        "visual_type",
+        "question_answered",
+        "source_ids",
+        "uncertainty"
+      ],
+      "properties": {
+        "figure_id": {
+          "type": "string",
+          "pattern": "^F[0-9]{2,}$"
+        },
+        "title": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "visual_type": {
+          "enum": [
+            "timeline",
+            "force-field",
+            "mechanism",
+            "matrix",
+            "evidence",
+            "scenario",
+            "xyz-synthesis",
+            "other"
+          ]
+        },
+        "question_answered": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/sourceId"
+          }
+        },
+        "uncertainty": {
+          "type": "string"
+        }
+      }
     }
-  },
-  "输出要求": {
-    "报告结构": ["一句话定义", "视觉表达规划", "X轴分析：时间线因果链", "Y轴分析：关键节点力场", "Z轴分析：力量内部机制拆解", "三轴交汇洞察与三轴概念图", "信息来源", "方法论说明"],
-    "X轴输出": "叙事体，有因果链感，每个节点回答'发生了什么→为什么重要→导向什么'，不是大事记列表。",
-    "Y轴输出": "力场叙事体，每个关键截面呈现力量交织、博弈、共振或相互抵消，不是力量清单。",
-    "Z轴输出": "机制解释体，每种力量都拆动机、约束、内部结构、互动关系和证据等级，不是资料堆砌。",
-    "交汇洞察输出": "判断体，给出锐利洞察、根源解释、三轴概念图和未来主线，不是内容摘要。",
-    "图表输出": "图表数量由内容复杂度和证据密度决定。每张图必须有编号、图注、解释段和证据边界；优先用inline SVG或已渲染图片，避免未渲染的Mermaid源码。",
-    "总字数建议": "X轴 4000-12000字，Y轴 3000-8000字，Z轴 2000-5000字，三轴交汇 1500-3000字，总计 10000-28000字。",
-    "信息来源标注": "所有关键事实需标注信息来源；推测内容明确标注'推测'及依据；冲突信息并列说明。",
-    "不可编造": "信息不足时写'暂缺'或'未找到可靠来源'，不得补脑。"
   }
 }

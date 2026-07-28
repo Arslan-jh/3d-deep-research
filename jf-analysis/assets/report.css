@@ -1,0 +1,272 @@
+@page {
+    size: A4;
+    margin: 25mm 20mm 20mm;
+
+    @top-center {
+        content: "HEADER_TEXT";
+        font-family: "Microsoft YaHei", "Noto Sans CJK SC", "Droid Sans Fallback", Arial, sans-serif;
+        font-size: 8pt;
+        color: #8c6f6f;
+        border-bottom: 0.5pt solid #f0d9d9;
+        padding-bottom: 3mm;
+    }
+
+    @bottom-center {
+        content: "第 " counter(page) " 页";
+        font-family: "Microsoft YaHei", "Noto Sans CJK SC", "Droid Sans Fallback", Arial, sans-serif;
+        font-size: 8pt;
+        color: #8c6f6f;
+        border-top: 0.8pt solid #c00000;
+        padding-top: 2mm;
+    }
+}
+
+@page :first {
+    @top-center { content: none; }
+    @bottom-center { content: none; }
+}
+
+html {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+}
+
+body {
+    font-family: "Microsoft YaHei", "Noto Sans CJK SC", "Droid Sans Fallback", Arial, sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.75;
+    color: #2f2727;
+    text-align: justify;
+    background: #fff;
+}
+
+.cover {
+    page-break-after: always;
+    text-align: center;
+    padding-top: 42%;
+}
+
+.cover h1 {
+    font-size: 28pt;
+    color: #c00000;
+    margin-bottom: 8mm;
+    font-weight: 700;
+    letter-spacing: 1.5pt;
+    line-height: 1.25;
+}
+
+.cover .subtitle {
+    font-size: 14pt;
+    color: #8c6f6f;
+    margin-bottom: 6mm;
+}
+
+.cover .meta {
+    font-size: 10pt;
+    color: #8c6f6f;
+    margin-bottom: 4mm;
+}
+
+.cover .divider {
+    width: 60%;
+    margin: 8mm auto;
+    border: 0;
+    border-top: 1.8pt solid #c00000;
+}
+
+h1 {
+    font-size: 20pt;
+    color: #c00000;
+    margin-top: 16mm;
+    margin-bottom: 6mm;
+    padding: 0 0 3mm 4mm;
+    border-bottom: 2pt solid #c00000;
+    border-left: 5pt solid #c00000;
+    page-break-before: always;
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 14pt;
+    color: #8a0000;
+    margin-top: 10mm;
+    margin-bottom: 5mm;
+    padding-bottom: 1.5mm;
+    border-bottom: 0.6pt solid #e2bcbc;
+    font-weight: 700;
+    break-after: avoid;
+}
+
+h3 {
+    font-size: 12pt;
+    color: #a60000;
+    margin-top: 6mm;
+    margin-bottom: 3mm;
+    font-weight: 700;
+    break-after: avoid;
+}
+
+h4 {
+    font-size: 11pt;
+    color: #7a0000;
+    margin-top: 5mm;
+    margin-bottom: 2mm;
+    font-weight: 700;
+    break-after: avoid;
+}
+
+p {
+    margin: 1.5mm 0;
+    text-indent: 2em;
+    orphans: 3;
+    widows: 3;
+}
+
+blockquote p,
+li p,
+td p,
+th p,
+figcaption p,
+.cover p,
+.jf-figure-note {
+    text-indent: 0;
+}
+
+blockquote {
+    margin: 4mm 0;
+    padding: 4mm 4mm 4mm 8mm;
+    background: #fff7f7;
+    border-left: 3pt solid #c00000;
+    color: #5f4b4b;
+    font-size: 10pt;
+    break-inside: avoid;
+}
+
+blockquote p {
+    margin: 1mm 0;
+}
+
+strong,
+b {
+    font-weight: 700;
+    color: #2b1a1a;
+}
+
+code {
+    font-family: "Cascadia Mono", "Courier New", monospace;
+    background: #fff0f0;
+    color: #c00000;
+    padding: 0.5mm 1.5mm;
+    border-radius: 2pt;
+    font-size: 9.5pt;
+}
+
+pre {
+    padding: 3mm;
+    background: #fff7f7;
+    border: 0.5pt solid #e2bcbc;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    break-inside: avoid;
+}
+
+pre code {
+    padding: 0;
+    background: transparent;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 4mm 0;
+    font-size: 9pt;
+    break-inside: auto;
+}
+
+thead {
+    display: table-header-group;
+}
+
+thead th {
+    background: #c00000;
+    color: #fff;
+    padding: 3mm;
+    text-align: left;
+    font-weight: 700;
+}
+
+tbody tr {
+    break-inside: avoid;
+}
+
+tbody td {
+    padding: 2.5mm 3mm;
+    border-bottom: 0.5pt solid #e2bcbc;
+    vertical-align: top;
+}
+
+tbody tr:nth-child(even) {
+    background: #fff7f7;
+}
+
+hr {
+    border: 0;
+    border-top: 0.5pt solid #e2bcbc;
+    margin: 4mm 0;
+}
+
+ul,
+ol {
+    margin: 2mm 0;
+    padding-left: 8mm;
+}
+
+li {
+    margin-bottom: 1mm;
+}
+
+a {
+    color: #c00000;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+}
+
+figure,
+.jf-figure {
+    margin: 6mm 0;
+    padding: 4mm;
+    border: 0.7pt solid #e2bcbc;
+    border-radius: 3pt;
+    background: #fffdfd;
+    break-inside: avoid;
+}
+
+figcaption,
+.jf-caption {
+    margin-bottom: 3mm;
+    color: #8a0000;
+    font-size: 9.5pt;
+    font-weight: 700;
+    text-align: left;
+}
+
+figure svg,
+.jf-figure svg {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+}
+
+figure svg text,
+.jf-figure svg text {
+    font-family: "Microsoft YaHei", "Noto Sans CJK SC", "Droid Sans Fallback", Arial, sans-serif;
+}
+
+.jf-figure-note {
+    margin-top: 3mm;
+    color: #5f4b4b;
+    font-size: 9pt;
+    line-height: 1.5;
+}
