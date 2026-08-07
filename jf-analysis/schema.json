@@ -17,7 +17,7 @@
   ],
   "properties": {
     "schema_version": {
-      "const": "3.0"
+      "const": "3.1"
     },
     "meta": {
       "$ref": "#/$defs/meta"
@@ -642,6 +642,8 @@
         "figure_id",
         "title",
         "visual_type",
+        "chart_kind",
+        "question_type",
         "question_answered",
         "source_ids",
         "uncertainty"
@@ -665,6 +667,26 @@
             "xyz-synthesis",
             "other"
           ]
+        },
+        "chart_kind": {
+          "enum": [
+            "data",
+            "structural"
+          ],
+          "description": "数据图或结构图，按 chart-allocation.md 的 F/R/M 决策层规则确定。"
+        },
+        "question_type": {
+          "enum": [
+            "F",
+            "R",
+            "M"
+          ],
+          "description": "该图回答的问题类型：F 定量事实型 / R 关系机制型 / M 混合判断型。"
+        },
+        "paired_with": {
+          "type": "string",
+          "pattern": "^F[0-9]{2,}$",
+          "description": "M 型问题的配对图编号（数据锚 ↔ 结构解），可选。"
         },
         "question_answered": {
           "$ref": "#/$defs/nonEmptyString"

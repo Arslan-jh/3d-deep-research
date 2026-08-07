@@ -82,11 +82,7 @@ description: |
 
 ### 阶段 5：选择未来表达方式
 
-不要固定生成一种未来结构。先判断关键变量的不确定性：
-
-- 只有一个明显主导组合：写“基准路径 + 触发信号 + 替代解释 + 反证条件”。
-- 存在两个高影响、高不确定变量：使用 2×2 情景矩阵，再指出当前最接近的基准情景。
-- 信息不足：只列领先指标和待验证变量，不给确定性预测。
+不要固定生成一种未来结构。按关键变量的不确定性选择表达形式（基准路径、2×2 情景矩阵，或只列领先指标），判别标准见 [references/xyz-method.md](references/xyz-method.md) 的「未来表达」一节，此处不再重复。
 
 ### 阶段 6：写作与视觉表达
 
@@ -110,8 +106,11 @@ description: |
 ```bash
 python [skill目录]/scripts/validate_report.py report.md --strict
 python [skill目录]/scripts/render_report.py report.md output.pdf --title "研究对象立体分析报告" --engine auto
-python [skill目录]/scripts/linkify_sources.py report.html   # 将 [Sxx] 引用转为可点击跳转链接
 ```
+
+`render_report.py` 已内置 linkify 步骤：渲染时自动把 `[Sxx]` 引用转为指向来源账本的可点击锚点（HTML 与 PDF 均生效），可用 `--no-linkify` 关闭；`linkify_sources.py` 仍可对已有 HTML 单独使用。
+
+依赖说明：Markdown 转 HTML 需要 `python -m pip install markdown`（缺失时回退到 Codex 内置 Node.js + marked）；校验 PDF 文本需要 `pypdf` 或 `PyPDF2`；PDF 引擎按 `--engine auto` 自动选择 Chromium 或 WeasyPrint。
 
 渲染后执行两份补丁的交付前自检清单（chart-allocation 第五步、readability-style 规则五），全部打勾后方可交付。
 
