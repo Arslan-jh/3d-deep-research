@@ -12,7 +12,7 @@
 |---|---|
 | Source ID | 全报告唯一 |
 | 标题与发布者 | 使用原始标题和责任主体 |
-| URL/文件 | 指向具体页面或文件，不指向搜索结果 |
+| URL/文件 | 指向具体页面或文件，不指向搜索结果；在 A1 账本中以超链接形式打在来源标题上 |
 | 发布日期/访问日期 | 最新状态判断必须同时记录 |
 | 出处类型 | `primary` / `independent-secondary` / `community` / `lead-only` |
 | 证据作用 | `fact` / `behavior` / `context` / `user-voice` / `counterevidence` |
