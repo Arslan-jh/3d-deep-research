@@ -270,3 +270,21 @@ figure svg text,
     font-size: 9pt;
     line-height: 1.5;
 }
+
+/* figure images: fit page box, cap height in print to avoid overflow/cropping */
+figure img,
+.jf-figure img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+@media print {
+    figure img,
+    .jf-figure img {
+        max-height: 150mm;
+        width: auto;
+        max-width: 100%;
+        object-fit: contain;
+    }
+}

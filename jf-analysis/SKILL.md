@@ -1,7 +1,7 @@
 ---
 name: jf-analysis
 description: |
-  立体分析法（3D Analysis）深度研究 Skill。用于对产品、公司、技术、概念、人物、行业或复杂事件做系统研究，并交付证据可追溯的 Markdown 与 PDF 报告。核心使用 X 轴时间线因果链、Y 轴关键截面力场、Z 轴内部机制拆解。用户明确提到 jf-analysis、立体分析、深度研究、系统调研、竞品研究、摸清来龙去脉、建立证据链或要求正式研究报告时使用。简单名词解释、纯新闻摘要、短篇观点、仿写和无需联网的简答不使用。
+  立体分析法（3D Analysis）深度研究 Skill。用于对产品、公司、技术、概念、人物、行业或复杂事件做系统研究，并交付证据可追溯、图表配置合理、正文流畅易读的 Markdown 与 PDF 报告。核心使用 X 轴时间线因果链、Y 轴关键截面力场、Z 轴内部机制拆解；输出层另有问题驱动的数据图/结构图配置与分层降密度写作规范。用户明确提到 jf-analysis、立体分析、深度研究、系统调研、竞品研究、摸清来龙去脉、建立证据链或要求正式研究报告时使用。简单名词解释、纯新闻摘要、短篇观点、仿写和无需联网的简答不使用。
 ---
 
 # 立体分析法深度研究
@@ -17,8 +17,9 @@ description: |
 1. 始终读取 [references/evidence-protocol.md](references/evidence-protocol.md)，建立来源账本和 Claim 账本。
 2. 始终读取 [references/xyz-method.md](references/xyz-method.md)，执行 X/Y/Z 与交汇分析。
 3. 根据对象类型读取 [references/object-adapters.md](references/object-adapters.md) 的对应部分。
-4. 需要图表或 PDF 时读取 [references/visual-guidelines.md](references/visual-guidelines.md)。
-5. 写作时复制 [assets/report-template.md](assets/report-template.md)，不要重新发明报告结构。
+4. 需要图表或 PDF 时读取 [references/visual-guidelines.md](references/visual-guidelines.md)，并叠加 [references/chart-allocation.md](references/chart-allocation.md) 的问题驱动图表配置规则（冲突时以补丁为准）。
+5. 写作前读取 [references/readability-style.md](references/readability-style.md)：正文去术语、限定语集中化、问句标题；严谨性全部保留在附录，不删一个字。
+6. 写作时复制 [assets/report-template.md](assets/report-template.md)，不要重新发明报告结构；章节标题措辞按补丁规则人话化，章节顺序与数量不变。
 
 `schema.json` 是可选的结构化研究状态规范。只有需要机器可读中间状态、自动化验证或跨 Agent 合并时才读取。
 
@@ -109,7 +110,10 @@ description: |
 ```bash
 python [skill目录]/scripts/validate_report.py report.md --strict
 python [skill目录]/scripts/render_report.py report.md output.pdf --title "研究对象立体分析报告" --engine auto
+python [skill目录]/scripts/linkify_sources.py report.html   # 将 [Sxx] 引用转为可点击跳转链接
 ```
+
+渲染后执行两份补丁的交付前自检清单（chart-allocation 第五步、readability-style 规则五），全部打勾后方可交付。
 
 旧命令保持兼容：
 
