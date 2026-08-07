@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-"""Post-process a jf-analysis report: turn [Sxx] citations into anchor links.
+"""Post-process a jf-analysis report: turn [Sxx] citations into source links.
 
-For HTML: each in-text [S04] becomes a clickable link jumping to the source
-ledger row; each ledger row gets id="src-S04" and a back-link.
+For HTML: each in-text [S04] becomes a clickable link that opens the
+original source URL (taken from the matching source-ledger row) in a new
+tab. If a ledger row has no URL, the citation falls back to an in-page
+anchor jump to the ledger row. Ledger rows also get id="src-S04".
 For Markdown/PDF-via-HTML: run after render_report.py generated the HTML,
 then re-render PDF from the linked HTML with a headless browser.
 
@@ -35,9 +37,28 @@ def linkify_html(html: str) -> tuple[str, int, int]:
     )
     n_rows = len(re.findall(r'<tr id="src-S\d{2}">', html))
 
-    # 2) In-text [S04] / [S04][S19] -> links. Skip occurrences already inside <a> or the ledger id attr.
+    # 1b) Map each ledger source id to its original URL (first http(s) link in the row).
+    url_map: dict[str, str] = {}
+    for m in re.finditer(
+        r'<tr id="src-(S\d{2})">(.*?)</tr>', html, flags=re.DOTALL
+    ):
+        sid, row_html = m.group(1), m.group(2)
+        href = re.search(r'href="(https?://[^"]+)"', row_html)
+        bare = re.search(r'(?<!["=])(https?://[^\s<)"\]]+)', row_html)
+        url = (href or bare).group(1).rstrip(".,;。") if (href or bare) else ""
+        if url:
+            url_map[sid] = url
+
+    # 2) In-text [S04] / [S04][S19] -> links to the source URL (new tab);
+    #    fall back to an in-page anchor when the ledger row has no URL.
     def cite_repl(m: re.Match) -> str:
         sid = m.group(1)
+        url = url_map.get(sid)
+        if url:
+            return (
+                f'<a href="{url}" target="_blank" rel="noopener noreferrer" '
+                f'class="src-link">[{sid}]</a>'
+            )
         return f'<a href="#src-{sid}" class="src-link">[{sid}]</a>'
 
     # Protect ledger table region from being linkified twice (ids already there):

@@ -151,8 +151,6 @@ def build_html(
         if meta_line
         else ""
     )
-    base_href = html.escape(input_path.parent.resolve().as_uri() + "/", quote=True)
-
     cover = f"""
 <div class="cover">
   <h1 style="page-break-before: avoid; border: none;">{safe_title}</h1>
@@ -169,7 +167,6 @@ def build_html(
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{safe_title}</title>
-  <base href="{base_href}">
   <style>{css}</style>
 </head>
 <body>
