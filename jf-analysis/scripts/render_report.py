@@ -24,6 +24,14 @@ from pathlib import Path
 SKILL_DIR = Path(__file__).resolve().parent.parent
 DEFAULT_CSS = SKILL_DIR / "assets" / "report.css"
 
+# Turning [Sxx] citations into clickable anchors is part of the standard
+# render pipeline; linkify_sources.py ships with this skill.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+try:
+    from linkify_sources import linkify_html
+except Exception:  # pragma: no cover - script missing or broken
+    linkify_html = None
+
 
 def _configure_utf8_console() -> None:
     for stream in (sys.stdout, sys.stderr):
@@ -292,6 +300,11 @@ def parse_args() -> argparse.Namespace:
         help="PDF engine",
     )
     parser.add_argument("--css", default=str(DEFAULT_CSS), help="CSS file path")
+    parser.add_argument(
+        "--no-linkify",
+        action="store_true",
+        help="Do not turn [Sxx] citations into clickable anchors",
+    )
     parser.add_argument("--no-html", action="store_true", help="Do not keep HTML")
     parser.add_argument(
         "--html-only",
@@ -324,6 +337,12 @@ def main() -> None:
         author=args.author,
         css_path=css_path,
     )
+
+    # Linkify [Sxx] citations so both the HTML and the PDF printed from it
+    # carry clickable jumps to the source ledger.
+    if linkify_html is not None and not args.no_linkify:
+        rendered_html, n_links, n_rows = linkify_html(rendered_html)
+        print(f"[OK] Source citations linked: {n_links} links, {n_rows} ledger anchors")
 
     # Chromium needs a physical HTML file. In --no-html mode it is removed
     # only after successful PDF rendering.
