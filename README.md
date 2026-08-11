@@ -56,7 +56,7 @@
 仓库根目录就是单一 Skill。
 
 ```bash
-npx skills add Arslan-jh/3d-deep-research --skill 3d-deep-research --global --agent codex --yes
+npx skills add Arslan-jh/3d-deep-research --skill 3d-deep-research
 ```
 
 安装后使用 `$3d-deep-research`，或直接提出深度研究、证据综合、竞品分析或研究报告请求。`npx skills` 会自动下载并配置 Skill，不需要手动 clone。
