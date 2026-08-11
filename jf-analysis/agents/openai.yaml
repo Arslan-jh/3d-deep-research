@@ -1,4 +1,0 @@
-interface:
-  display_name: "立体分析深度研究"
-  short_description: "用时间、力场与机制完成证据可追溯、可验证的系统深度研究报告"
-  default_prompt: "Use $jf-analysis to research this subject deeply, build an evidence chain, and deliver a verified Markdown and PDF report."

@@ -1,8 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://local.codex.invalid/jf-analysis/research-state.schema.json",
-  "title": "jf-analysis structured research state",
-  "description": "立体分析研究通过证据门控后的可选机器可读状态。SKILL.md 是流程真相源，本 Schema 只约束结构化状态。",
+  "$id": "https://local.codex.invalid/3d-deep-research/research-state.schema.json",
+  "title": "3d-deep-research structured research state",
+  "description": "3D Deep Research 通过证据门控后的可选机器可读状态。SKILL.md 是流程真相源，本 Schema 只约束结构化状态。",
   "type": "object",
   "additionalProperties": false,
   "required": [
