@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate a jf-analysis Markdown report and optionally its PDF."""
+"""Validate a 3d-deep-research Markdown report and optionally its PDF."""
 
 from __future__ import annotations
 
@@ -287,7 +287,7 @@ def validate_markdown(
 
 
 def parse_args() -> argparse.Namespace:
-    parser = argparse.ArgumentParser(description="Validate a jf-analysis report.")
+    parser = argparse.ArgumentParser(description="Validate a 3d-deep-research report.")
     parser.add_argument("markdown", help="Markdown report path")
     parser.add_argument("--pdf", help="Optional rendered PDF path")
     parser.add_argument(

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Post-process a jf-analysis report: turn [Sxx] citations into source links.
+"""Post-process a 3d-deep-research report: turn [Sxx] citations into source links.
 
 For HTML: each in-text [S04] becomes a clickable link that opens the
 original source URL (taken from the matching source-ledger row) in a new

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Render a jf-analysis Markdown report to HTML and PDF.
+"""Render a 3d-deep-research Markdown report to HTML and PDF.
 
 The renderer has no mandatory PDF engine dependency:
 - On Windows, auto mode prefers an installed Chromium browser.
@@ -221,7 +221,7 @@ def render_with_chromium(html_path: Path, output_path: Path) -> str:
 
     browser = browsers[0]
     with tempfile.TemporaryDirectory(
-        prefix="jf-analysis-chromium-",
+        prefix="3d-deep-research-chromium-",
         ignore_cleanup_errors=True,
     ) as profile:
         command = [
@@ -279,7 +279,7 @@ def _engine_order(requested: str) -> list[str]:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Render jf-analysis Markdown to HTML and PDF."
+        description="Render 3d-deep-research Markdown to HTML and PDF."
     )
     parser.add_argument("input", help="Input Markdown path")
     parser.add_argument("output", help="Output PDF path")

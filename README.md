@@ -1,52 +1,139 @@
-# jeffy-skills
+# 3D Deep Research
 
-这是一个用于沉淀个人研究方法、汇报生成方法与自动化交付流程的 Skills 仓库。每个 Skill 独立放在自己的子目录中。
+[简体中文](README.zh-CN.md)
 
-## 当前 Skills
+**Evidence-backed deep research for traceable, decision-ready reports.**
 
-| Skill | 说明 |
-|---|---|
-| `jf-analysis` | 使用立体分析法生成证据可追溯、可验证的 Markdown、HTML 与 PDF 深度研究报告。 |
-| `excellent-operations-ppt` | 基于 DESIGN.md 生成规范企业汇报材料，同时输出 PPTX 和 HTML 预览。 |
-| `architecture-map` | 将报告、概念、业务、系统、行业生态或截图转化为可独立阅读的一页式架构图。 |
+3D Deep Research is a single Agent Skill for turning open-ended questions into structured research reports. It combines source and Claim ledgers, counterevidence search, evidence gates, three-dimensional analysis, and validated Markdown, HTML, and PDF delivery.
 
-## jf-analysis：立体分析法
+> From sources to claims. From timeline to mechanisms.
 
-`jf-analysis` 采用“立体分析法（3D Analysis）”组织研究报告：
+![3D Deep Research workflow](media/3d-deep-research-flow.svg)
 
-- **X 轴：时间线因果链**：追踪研究对象从起源到当下的关键节点，回答“它是如何一步步走到今天的”。
-- **Y 轴：多因素并行展开**：在关键时间截面还原竞品、资本、技术、市场、政策、人物、舆论等力量如何同时作用。
-- **Z 轴：力量内部机制拆解**：深入拆解核心力量的内部结构、动机、约束条件和相互影响，解释“为什么会这样走”。
+## Why this Skill
 
-默认交付为结构化 Markdown、HTML 和 PDF 报告。`jf-analysis/scripts/validate_report.py` 负责质量门槛校验，`jf-analysis/scripts/render_report.py` 负责跨平台渲染；`md_to_pdf.py` 保留为兼容入口。
+Most research workflows stop at search and synthesis. This Skill makes the reasoning path inspectable:
 
-## excellent-operations-ppt：卓越运营 PPT
+- **Source traceability** — record source type, evidence role, independence, dates, and limitations.
+- **Claim traceability** — bind load-bearing judgments to Source IDs, counterevidence, confidence, gaps, and disconfirmation conditions.
+- **Evidence gates** — facts, causes, mechanisms, market judgments, and forecasts use different minimum thresholds.
+- **Mechanism-level analysis** — connect a timeline, a force field, and internal mechanisms instead of producing a flat summary.
+- **Validated delivery** — check structure, citations, rendering, PDF text, and visual integrity before handoff.
 
-`excellent-operations-ppt` 基于 `excellent-operations-ppt/DESIGN.md` 生成企业汇报材料。它不捆绑 PPTX 模板，而是把 DESIGN.md 作为设计系统规范，用于指导页面版式、组件、配色、排版和质量判断。
+## The 3D method
 
-默认交付为：
+| Dimension | Question | Typical output |
+|---|---|---|
+| **X — Timeline** | How did the subject arrive here? | 4–7 path-changing turning points |
+| **Y — Force field** | Which forces accelerated, constrained, or redirected the path? | 2–4 critical time slices |
+| **Z — Mechanisms** | Why did the key actors and systems behave this way? | 2–5 mechanisms with alternatives |
 
-1. `.pptx`：正式 PowerPoint 文件，适合汇报、编辑和二次修改；
-2. `.html`：浏览器预览文件，用于快速查看标题链、页面内容和结构。
+The three dimensions must converge into a new, falsifiable judgment. `3D` here means timeline × forces × mechanisms; this is not a 3D graphics, modeling, rendering, or CAD Skill.
 
-核心规则：
+## Workflow
 
-- 观点在标题上，简短语句表达。
-- 每页传递观点三点以内。
-- 中文字体微软雅黑，英文字体 Times New Roman。
-- 每页字号三种以内。
-- 决不允许出现动画和页面转场。
-- 页面遵循 DESIGN.md 的视觉规范。
-- 关键内容标红加粗。
-- 慎用感叹号。
+```text
+Research question
+  → Research contract
+  → Search map: facts / causes / counterevidence
+  → Source ledger + Claim ledger
+  → Evidence gates
+  → X/Y/Z analysis and synthesis
+  → Baseline path, scenario matrix, or leading indicators
+  → Report assembly
+  → Strict validation and browser/PDF rendering
+  → Markdown / HTML / PDF delivery
+```
 
-## architecture-map：一页式架构图
+When evidence is insufficient, the workflow returns a continuing state: confirmed findings, evidence gaps, and a next verification path. It does not fill missing support with plausible-sounding claims.
 
-`architecture-map` 用于把报告、概念、产品想法、公司业务、行业生态、平台战略、AI/Agent 系统、运营模型、技术系统或截图，转化为一张能独立说明问题的一页式架构图。
+## Use cases
 
-默认输出是一份可直接打开的 HTML/SVG 架构图。它强调：
+- Company, product, technology, concept, person, event, and industry research.
+- Competitive analysis, due diligence, market and ecosystem research.
+- Technology evaluation and policy or regulatory background research.
+- Historical path reconstruction and mechanism-level explanation.
+- Decision-ready reports with explicit uncertainty and leading indicators.
 
-- 先建模再绘图：明确核心判断、关键角色、输入触发、处理机制、核心能力、底层支撑、结果约束。
-- 事实边界清楚：区分官方事实、观察事实、分析解读和待确认假设。
-- 视角匹配对象：按公司业务、AI/Agent 系统、产品平台、行业生态或战略能力地图选择不同架构语法。
-- 视觉可交付：标题、主轴、主画布、侧栏、底部总结完整，读者应能在 30 秒内回答“这是什么、怎么运作、为什么重要”。
+## Install
+
+The repository is intentionally single-Skill, while the public README remains outside the Skill directory.
+
+### Codex
+
+```bash
+git clone https://github.com/Arslan-jh/3d-deep-research.git
+cp -R 3d-deep-research/3d-deep-research ~/.codex/skills/3d-deep-research
+```
+
+Use `$3d-deep-research` or invoke it naturally with a request for deep research, evidence synthesis, competitive analysis, or a research report.
+
+### Windows PowerShell
+
+```powershell
+git clone https://github.com/Arslan-jh/3d-deep-research.git
+Copy-Item -Recurse .\3d-deep-research\3d-deep-research $env:USERPROFILE\.codex\skills\3d-deep-research
+```
+
+The same `3d-deep-research/` Skill directory can be copied into another Agent Skills-compatible runtime after its local installation path is confirmed.
+
+## Example
+
+- [Representative workflow report](examples/3d-deep-research-workflow/report.md)
+- [Rendered HTML report](examples/3d-deep-research-workflow/report.html)
+- [Rendered PDF report](examples/3d-deep-research-workflow/report.pdf)
+- [Editable workflow diagram](media/3d-deep-research-flow.excalidraw)
+
+Example prompts:
+
+```text
+Deep research the competitive position and future risks of a technology company.
+
+Compare two products through their timeline, market forces, and underlying mechanisms.
+
+Build an evidence-backed industry report with counterarguments and leading indicators.
+```
+
+## Quality gates
+
+Before delivery, the Skill checks:
+
+1. One H1 and six ordered main sections.
+2. Source IDs resolve to a source ledger.
+3. A Claim evidence matrix exists.
+4. No unresolved template placeholders or unrendered Mermaid remain.
+5. HTML/PDF rendering succeeds and PDF text is extractable.
+6. Visual outputs are checked for missing glyphs, clipping, overlap, and unreadable density.
+
+Run the repository validators against a report:
+
+```bash
+python 3d-deep-research/scripts/validate_report.py report.md --strict
+python 3d-deep-research/scripts/render_report.py report.md output.pdf --engine auto
+```
+
+## Repository structure
+
+```text
+3d-deep-research/
+├── README.md
+├── README.zh-CN.md
+├── LICENSE
+├── media/
+├── examples/
+└── 3d-deep-research/
+    ├── SKILL.md
+    ├── agents/openai.yaml
+    ├── assets/
+    ├── references/
+    ├── scripts/
+    └── schema.json
+```
+
+## Boundaries
+
+This Skill provides a research method and delivery workflow. It does not guarantee that every source is correct, replace domain experts, or turn a structural validation pass into proof that an external claim is true. Public-source gaps, conflicting evidence, access failures, and uncertain forecasts remain visible in the report.
+
+## License
+
+MIT. See [LICENSE](LICENSE).

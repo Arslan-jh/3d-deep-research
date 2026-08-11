@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>3D Deep Research 工作流示例报告</title>
+  <style>@page {
+    size: A4;
+    margin: 25mm 20mm 20mm;
+
+    @top-center {
+        content: "3D Deep Research 工作流示例报告  |  立体分析法深度研究报告";
+        font-family: "Microsoft YaHei", "Noto Sans CJK SC", "Droid Sans Fallback", Arial, sans-serif;
+        font-size: 8pt;
+        color: #8c6f6f;
+        border-bottom: 0.5pt solid #f0d9d9;
+        padding-bottom: 3mm;
+    }
+
+    @bottom-center {
+        content: "第 " counter(page) " 页";
+        font-family: "Microsoft YaHei", "Noto Sans CJK SC", "Droid Sans Fallback", Arial, sans-serif;
+        font-size: 8pt;
+        color: #8c6f6f;
+        border-top: 0.8pt solid #c00000;
+        padding-top: 2mm;
+    }
+}
+
+@page :first {
+    @top-center { content: none; }
+    @bottom-center { content: none; }
+}
+
+html {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+}
+
+body {
+    font-family: "Microsoft YaHei", "Noto Sans CJK SC", "Droid Sans Fallback", Arial, sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.75;
+    color: #2f2727;
+    text-align: justify;
+    background: #fff;
+}
+
+.cover {
+    page-break-after: always;
+    text-align: center;
+    padding-top: 42%;
+}
+
+.cover h1 {
+    font-size: 28pt;
+    color: #c00000;
+    margin-bottom: 8mm;
+    font-weight: 700;
+    letter-spacing: 1.5pt;
+    line-height: 1.25;
+}
+
+.cover .subtitle {
+    font-size: 14pt;
+    color: #8c6f6f;
+    margin-bottom: 6mm;
+}
+
+.cover .meta {
+    font-size: 10pt;
+    color: #8c6f6f;
+    margin-bottom: 4mm;
+}
+
+.cover .divider {
+    width: 60%;
+    margin: 8mm auto;
+    border: 0;
+    border-top: 1.8pt solid #c00000;
+}
+
+h1 {
+    font-size: 20pt;
+    color: #c00000;
+    margin-top: 16mm;
+    margin-bottom: 6mm;
+    padding: 0 0 3mm 4mm;
+    border-bottom: 2pt solid #c00000;
+    border-left: 5pt solid #c00000;
+    page-break-before: always;
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 14pt;
+    color: #8a0000;
+    margin-top: 10mm;
+    margin-bottom: 5mm;
+    padding-bottom: 1.5mm;
+    border-bottom: 0.6pt solid #e2bcbc;
+    font-weight: 700;
+    break-after: avoid;
+}
+
+h3 {
+    font-size: 12pt;
+    color: #a60000;
+    margin-top: 6mm;
+    margin-bottom: 3mm;
+    font-weight: 700;
+    break-after: avoid;
+}
+
+h4 {
+    font-size: 11pt;
+    color: #7a0000;
+    margin-top: 5mm;
+    margin-bottom: 2mm;
+    font-weight: 700;
+    break-after: avoid;
+}
+
+p {
+    margin: 1.5mm 0;
+    text-indent: 2em;
+    orphans: 3;
+    widows: 3;
+}
+
+blockquote p,
+li p,
+td p,
+th p,
+figcaption p,
+.cover p,
+.jf-figure-note {
+    text-indent: 0;
+}
+
+blockquote {
+    margin: 4mm 0;
+    padding: 4mm 4mm 4mm 8mm;
+    background: #fff7f7;
+    border-left: 3pt solid #c00000;
+    color: #5f4b4b;
+    font-size: 10pt;
+    break-inside: avoid;
+}
+
+blockquote p {
+    margin: 1mm 0;
+}
+
+strong,
+b {
+    font-weight: 700;
+    color: #2b1a1a;
+}
+
+code {
+    font-family: "Cascadia Mono", "Courier New", monospace;
+    background: #fff0f0;
+    color: #c00000;
+    padding: 0.5mm 1.5mm;
+    border-radius: 2pt;
+    font-size: 9.5pt;
+}
+
+pre {
+    padding: 3mm;
+    background: #fff7f7;
+    border: 0.5pt solid #e2bcbc;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    break-inside: avoid;
+}
+
+pre code {
+    padding: 0;
+    background: transparent;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 4mm 0;
+    font-size: 9pt;
+    break-inside: auto;
+}
+
+thead {
+    display: table-header-group;
+}
+
+thead th {
+    background: #c00000;
+    color: #fff;
+    padding: 3mm;
+    text-align: left;
+    font-weight: 700;
+}
+
+tbody tr {
+    break-inside: avoid;
+}
+
+tbody td {
+    padding: 2.5mm 3mm;
+    border-bottom: 0.5pt solid #e2bcbc;
+    vertical-align: top;
+}
+
+tbody tr:nth-child(even) {
+    background: #fff7f7;
+}
+
+hr {
+    border: 0;
+    border-top: 0.5pt solid #e2bcbc;
+    margin: 4mm 0;
+}
+
+ul,
+ol {
+    margin: 2mm 0;
+    padding-left: 8mm;
+}
+
+li {
+    margin-bottom: 1mm;
+}
+
+a {
+    color: #c00000;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+}
+
+figure,
+.jf-figure {
+    margin: 6mm 0;
+    padding: 4mm;
+    border: 0.7pt solid #e2bcbc;
+    border-radius: 3pt;
+    background: #fffdfd;
+    break-inside: avoid;
+}
+
+figcaption,
+.jf-caption {
+    margin-bottom: 3mm;
+    color: #8a0000;
+    font-size: 9.5pt;
+    font-weight: 700;
+    text-align: left;
+}
+
+figure svg,
+.jf-figure svg {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+}
+
+figure svg text,
+.jf-figure svg text {
+    font-family: "Microsoft YaHei", "Noto Sans CJK SC", "Droid Sans Fallback", Arial, sans-serif;
+}
+
+.jf-figure-note {
+    margin-top: 3mm;
+    color: #5f4b4b;
+    font-size: 9pt;
+    line-height: 1.5;
+}
+
+/* figure images: fit page box, cap height in print to avoid overflow/cropping */
+figure img,
+.jf-figure img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+@media print {
+    figure img,
+    .jf-figure img {
+        max-height: 150mm;
+        width: auto;
+        max-width: 100%;
+        object-fit: contain;
+    }
+}
+</style>
+<style>a.src-link{color:#c00000;text-decoration:none;}a.src-link:hover{text-decoration:underline;}tr[id^='src-']{scroll-margin-top:80px;}</style>
+</head>
+<body>
+<div class="cover">
+  <h1 style="page-break-before: avoid; border: none;">3D Deep Research 工作流示例报告</h1>
+  <div class="subtitle">Evidence-backed research workflow</div>
+  <div class="meta">研究时间：2026-08-11 | 研究问题：这套 Skill 如何把开放问题转化为可追溯的研究交付？ | 时间基准：2026-08-11</div>
+  <hr class="divider">
+  <div class="meta">作者：jeffy</div>
+</div>
+
+<blockquote>
+<p>研究时间：2026-08-11 | 研究问题：这套 Skill 如何把开放问题转化为可追溯的研究交付？ | 时间基准：2026-08-11</p>
+</blockquote>
+<h2>一、核心结论</h2>
+<h3>1.1 一句话判断</h3>
+<p>3D Deep Research 的核心不是增加搜索次数，而是把来源、Claim、三轴解释和交付校验串成一条可回溯的研究生产线 <a href="#src-S01" class="src-link">[S01]</a> <a href="#src-S02" class="src-link">[S02]</a>。</p>
+<h3>1.2 关键结论</h3>
+<p>第一，证据系统先于正式写作：来源账本记录出处类型、证据作用、独立性和限制，Claim 账本记录支持材料、反向材料、判断的稳健程度与需要推翻它的信号 <a href="#src-S02" class="src-link">[S02]</a>。</p>
+<p>第二，X/Y/Z 三轴不是三个并列章节，而是一个解释增量链。X 轴锁定改变路径的转折点，Y 轴还原关键截面的力量互动，Z 轴拆解动机、资源、约束和替代解释，三轴交汇后才形成机制判断 <a href="#src-S03" class="src-link">[S03]</a>。</p>
+<p>第三，报告交付也是方法的一部分。结构校验检查章节顺序、引用解析和 Claim 矩阵；渲染器再将 Markdown 转为 HTML 与 PDF，使内容质量和文件质量都能被检查 <a href="#src-S05" class="src-link">[S05]</a> <a href="#src-S06" class="src-link">[S06]</a>。</p>
+<blockquote>
+<p><strong>本章判断的成色</strong>：证据账本、三轴方法和交付校验均有本地材料支撑；仍需用真实研究任务验证解释增量。若实际报告无法保持来源可追溯，结论需要下调。</p>
+</blockquote>
+<h2>二、为什么会走到今天：时间线因果链</h2>
+<h3>2.1 起点与早期条件</h3>
+<p>原始需求不是生成一篇更长的摘要，而是让复杂对象的研究过程可追溯。现有 Skill 因此把研究对象、决策问题、范围、时间基准和交付要求作为第一阶段输入 <a href="#src-S01" class="src-link">[S01]</a>。</p>
+<h3>2.2 关键转折</h3>
+<p>第一个转折是从“搜集来源”转向“来源账本 + Claim 账本”。这让来源出处与证据作用分开记录，也让关键结论拥有独立的反向检索入口 <a href="#src-S02" class="src-link">[S02]</a>。</p>
+<p>第二个转折是从平铺材料转向 X/Y/Z 三轴。时间线回答路径如何形成，力场回答哪些力量改变路径，机制层回答表面叙事无法解释的行为 <a href="#src-S03" class="src-link">[S03]</a>。</p>
+<p>第三个转折是把验证前移到交付流程。Schema 为结构化状态定义边界，Markdown 校验器负责质量门槛，渲染器负责可打开、可检查的 HTML/PDF 产物 <a href="#src-S04" class="src-link">[S04]</a> <a href="#src-S05" class="src-link">[S05]</a> <a href="#src-S06" class="src-link">[S06]</a>。</p>
+<h3>2.3 当前位置</h3>
+<p>当前工作流已经具备“研究设定—证据门槛—三轴分析—未来表达—报告交付”的闭环。它仍然依赖外部检索工具和研究者对对象边界的正确设定，因此不能把结构校验等同于事实真伪证明 <a href="#src-S01" class="src-link">[S01]</a> <a href="#src-S04" class="src-link">[S04]</a>。</p>
+<blockquote>
+<p><strong>本章判断的成色</strong>：路径变化由 Skill 入口、方法文档和 Schema 共同支撑；真实对象的因果链仍需外部材料验证。若关键节点不能被独立来源复核，应把因果判断改为暂定解释。</p>
+</blockquote>
+<h2>三、哪些力量改变了路径：关键力场</h2>
+<h3>3.1 关键截面与主矛盾</h3>
+<p>在证据截面，主矛盾是研究速度与证据可审计性之间的平衡。只追求速度会把线索误当证据；只追求材料数量又会让报告失去决策焦点 <a href="#src-S02" class="src-link">[S02]</a>。</p>
+<p>在解释截面，主矛盾是结构化方法与对象差异之间的平衡。对象适配器要求产品、公司、技术、人物、事件和行业使用不同的检索重点，而不是把所有对象写成同一种增长故事 <a href="#src-S03" class="src-link">[S03]</a>。</p>
+<p>在交付截面，主矛盾是表达密度与可读性之间的平衡。视觉规范要求每张图回答一个分析问题，并在 PDF 生成后检查字体、裁切、重叠和编号 <a href="#src-S06" class="src-link">[S06]</a>。</p>
+<h3>3.2 推动力量与交织关系</h3>
+<p>证据协议提供可信度边界，三轴方法提供解释结构，Schema 提供机器可读约束，校验与渲染脚本提供交付反馈。四者互相强化：没有证据协议，三轴容易退化成观点；没有三轴，账本会变成资料仓库；没有校验，方法难以稳定交付 <a href="#src-S02" class="src-link">[S02]</a> <a href="#src-S03" class="src-link">[S03]</a> <a href="#src-S04" class="src-link">[S04]</a> <a href="#src-S05" class="src-link">[S05]</a>。</p>
+<h3>3.3 制约力量与被忽略变量</h3>
+<p>最大的制约不是格式，而是资料缺口。公开信息不足时，流程要求降低确定性，交付已确认部分、缺口和下一步验证路径，而不是用看似完整的叙事填空 <a href="#src-S02" class="src-link">[S02]</a>。另一个被忽略变量是时间基准：涉及最新状态时，访问日期和发布日期必须同时进入来源记录 <a href="#src-S02" class="src-link">[S02]</a>。</p>
+<blockquote>
+<p><strong>本章判断的成色</strong>：速度、证据可审计性和表达密度之间的张力有方法文档支撑；不同对象的力量互动仍需真实案例检验。若样本只来自同一来源链，力量判断只能保持低确定性。</p>
+</blockquote>
+<h2>四、底层机制：它为什么这样运转</h2>
+<h3>4.1 证据门控把不确定性变成可编辑状态</h3>
+<p>事实、因果、机制、市场和未来判断拥有不同的最低证据门槛。门槛未满足时，关键 Claim 必须改写为暂定解释或资料缺口；这使“不确定”成为报告中可定位、可继续验证的状态，而不是隐藏在语气里的模糊词 <a href="#src-S02" class="src-link">[S02]</a>。</p>
+<h3>4.2 三轴交汇把材料转化为机制判断</h3>
+<p>X 轴提供路径，Y 轴提供同时作用的力量，Z 轴提供参与者、资源、动机和约束。只有三者共同指向一个新判断，并同时写出替代解释、判断的稳健程度和需要推翻它的信号，研究才获得超出摘要的解释增量 <a href="#src-S03" class="src-link">[S03]</a>。</p>
+<h3>4.3 校验—渲染闭环把文本质量变成可观察产物</h3>
+<p>校验器先检查单一标题、六章顺序、Source ID 解析和 Claim 矩阵；渲染器再生成 HTML 与 PDF。若出现章节、引用、文字或图表问题，流程回到报告装配，而不是把“文件已生成”当成完成 <a href="#src-S05" class="src-link">[S05]</a> <a href="#src-S06" class="src-link">[S06]</a>。</p>
+<blockquote>
+<p><strong>本章判断的成色</strong>：证据门槛、三轴交汇和渲染闭环都有可执行文件支撑；机制解释的增量仍需真实任务评估。若替代解释同样能解释现象，应下调当前机制判断。</p>
+</blockquote>
+<h2>五、未来走势</h2>
+<h3>5.1 关键驱动变量</h3>
+<table>
+<thead>
+<tr>
+<th>变量</th>
+<th>当前状态</th>
+<th>影响</th>
+<th>不确定性</th>
+<th>领先指标</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>证据覆盖度</td>
+<td>已有来源/Claim 双账本</td>
+<td>高</td>
+<td>中</td>
+<td>承重 Claim 是否都有反向检索</td>
+</tr>
+<tr>
+<td>对象适配质量</td>
+<td>已按六类对象提供适配规则</td>
+<td>高</td>
+<td>中</td>
+<td>第三章主矛盾是否随对象变化</td>
+</tr>
+<tr>
+<td>交付验证稳定性</td>
+<td>已有严格校验与渲染脚本</td>
+<td>高</td>
+<td>低</td>
+<td>示例报告能否在干净环境复现</td>
+</tr>
+<tr>
+<td>公开示例数量</td>
+<td>当前仍需补充</td>
+<td>中</td>
+<td>高</td>
+<td>README 是否能链接真实报告和截图</td>
+</tr>
+</tbody>
+</table>
+<h3>5.2 基准路径或情景矩阵</h3>
+<p>基准路径是先完成单一 Skill 的公开包装，再用一到两个真实研究样例验证“证据链—三轴分析—可交付报告”是否能被新用户复现。若示例无法在干净环境完成校验与渲染，应先修复安装和依赖说明，而不是扩展更多功能。</p>
+<h3>5.3 修正信号与替代路径</h3>
+<p>如果新用户只能理解“3D”而无法理解时间线、力场和机制，说明品牌解释不足；如果报告通过结构校验但关键结论无法找到独立来源，说明证据门槛执行不足；如果 HTML/PDF 在不同环境中出现裁切或缺字，说明交付验证仍不稳定。</p>
+<blockquote>
+<p><strong>本章判断的成色</strong>：基准路径适合当前单一 Skill 包装，但公开示例数量和真实任务复现仍不足。若用户无法沿安装、校验和渲染路径复现，应优先修正文档与依赖说明。</p>
+</blockquote>
+<h2>六、结论</h2>
+<p>这套 Skill 已经形成一个清晰的方法产品：先定义问题，再管理证据；先还原路径与力场，再拆解机制；最后用结构和渲染校验把判断包装成可交付报告。发布前最重要的不是再增加抽象概念，而是提供一份可复现的示例、稳定的安装路径和诚实的能力边界。</p>
+<blockquote>
+<p><strong>本章判断的成色</strong>：整体结论由入口、证据协议、三轴方法、Schema、校验器和渲染器共同支撑；最脆弱的前提是真实任务中的复现效果。若独立研究样例无法复现，应重写发布结论。</p>
+</blockquote>
+<h2>附录一：来源与证据边界</h2>
+<h3>A1 来源账本</h3>
+<table>
+<thead>
+<tr>
+<th>Source ID</th>
+<th>来源与日期</th>
+<th>出处/作用/独立性</th>
+<th>URL/文件与限制</th>
+</tr>
+</thead>
+<tbody>
+<tr id="src-S01"><td>S01</td>
+<td><code>3d-deep-research/SKILL.md</code>；2026-08-11</td>
+<td>primary / fact / independent</td>
+<td>本地 Skill 入口；描述方法与交付边界</td>
+</tr>
+<tr id="src-S02"><td>S02</td>
+<td><code>3d-deep-research/references/evidence-protocol.md</code>；2026-08-11</td>
+<td>primary / fact / independent</td>
+<td>本地证据协议；不是外部对象事实</td>
+</tr>
+<tr id="src-S03"><td>S03</td>
+<td><code>3d-deep-research/references/xyz-method.md</code>；2026-08-11</td>
+<td>primary / fact / independent</td>
+<td>本地三轴方法；不是外部对象事实</td>
+</tr>
+<tr id="src-S04"><td>S04</td>
+<td><code>3d-deep-research/schema.json</code>；2026-08-11</td>
+<td>primary / behavior / independent</td>
+<td>本地结构化状态 Schema；可选中间状态</td>
+</tr>
+<tr id="src-S05"><td>S05</td>
+<td><code>3d-deep-research/scripts/validate_report.py</code>；2026-08-11</td>
+<td>primary / behavior / independent</td>
+<td>本地严格校验器；不证明事实真伪</td>
+</tr>
+<tr id="src-S06"><td>S06</td>
+<td><code>3d-deep-research/scripts/render_report.py</code>；2026-08-11</td>
+<td>primary / behavior / independent</td>
+<td>本地 HTML/PDF 渲染器；引擎依赖需单独验证</td>
+</tr>
+</tbody>
+</table>
+<h3>A2 Claim 证据矩阵</h3>
+<table>
+<thead>
+<tr>
+<th>Claim ID</th>
+<th>Claim</th>
+<th>类型/重要性</th>
+<th>支持与反向材料</th>
+<th>置信度/独立性</th>
+<th>缺口与反证条件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>C01</td>
+<td>工作流把来源、判断、机制和交付校验连成一条链</td>
+<td>mechanism / load-bearing</td>
+<td>支持 S01、S02、S03、S05、S06；反向：需用真实用户样例检验</td>
+<td>high / independent</td>
+<td>若真实任务中阶段不衔接，应下调判断</td>
+</tr>
+<tr>
+<td>C02</td>
+<td>证据门控会把不足证据转化为资料缺口或暂定解释</td>
+<td>mechanism / load-bearing</td>
+<td>支持 S02；反向：检查实际报告是否仍出现无来源承重判断</td>
+<td>high / independent</td>
+<td>需要更多真实报告样本</td>
+</tr>
+<tr>
+<td>C03</td>
+<td>X/Y/Z 三轴提供超出摘要的机制解释结构</td>
+<td>mechanism / load-bearing</td>
+<td>支持 S03；反向：比较只做时间线的报告</td>
+<td>medium / independent</td>
+<td>解释增量需要外部任务评估</td>
+</tr>
+<tr>
+<td>C04</td>
+<td>校验与渲染脚本能把交付质量变成可观察检查项</td>
+<td>behavior / supporting</td>
+<td>支持 S05、S06；反向：跨平台字体和引擎差异</td>
+<td>high / independent</td>
+<td>需在干净环境复现</td>
+</tr>
+</tbody>
+</table>
+<h3>A3 资料边界</h3>
+<p>本示例研究对象是本地 Skill 工作流，不对外部公司、市场或人物做事实判断。所有来源均为本地文件；因此它展示的是方法如何被应用和验证，不替代真实联网研究。PDF 引擎、字体和外部检索工具仍可能造成环境差异。</p>
+<h3>A4 视觉表达说明</h3>
+<p>本示例用一条流程图表达“研究设定—证据门控—三轴分析—交付验证”的运行链路。没有加入量化图，因为当前示例没有可比较的外部数值；完整流程架构见仓库中的 <code>3d-deep-research-flow.svg</code>。</p>
+<h2>附录二：方法说明</h2>
+<p>本报告先用证据协议区分来源、证据作用和 Claim 置信度，再用 X 轴追踪路径、Y 轴还原关键截面、Z 轴拆解机制，最后根据不确定性选择基准路径或领先指标表达。所有判断都保留资料缺口和反证条件，以便后续继续验证。</p>
+</body>
+</html>
