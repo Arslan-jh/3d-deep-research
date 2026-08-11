@@ -53,35 +53,15 @@
 
 ## 安装
 
-仓库根目录就是单一 Skill，同时附带示例报告和发布说明。
-
-### Codex
+仓库根目录就是单一 Skill。
 
 ```bash
-git clone https://github.com/Arslan-jh/3d-deep-research.git
-mkdir -p ~/.codex/skills/3d-deep-research
-cp -R 3d-deep-research/. ~/.codex/skills/3d-deep-research/
+npx skills add Arslan-jh/3d-deep-research --skill 3d-deep-research --global --agent codex --yes
 ```
 
-然后使用 `$3d-deep-research`，或直接提出深度研究、证据综合、竞品分析或研究报告请求。
+安装后使用 `$3d-deep-research`，或直接提出深度研究、证据综合、竞品分析或研究报告请求。`npx skills` 会自动下载并配置 Skill，不需要手动 clone。
 
-### Windows PowerShell
-
-```powershell
-git clone https://github.com/Arslan-jh/3d-deep-research.git
-New-Item -ItemType Directory -Force $env:USERPROFILE\.codex\skills\3d-deep-research | Out-Null
-Copy-Item -Recurse .\3d-deep-research\* $env:USERPROFILE\.codex\skills\3d-deep-research
-```
-
-仓库根目录可以复制到其他 Agent Skills 兼容运行时，但应先确认目标运行时的安装路径。
-
-## 示例
-
-- [工作流示例报告](examples/3d-deep-research-workflow/report.md)
-- [HTML 报告](examples/3d-deep-research-workflow/report.html)
-- [PDF 报告](examples/3d-deep-research-workflow/report.pdf)
-
-示例请求：
+## 请求示例
 
 ```text
 深度研究一家科技公司的竞争位置、发展路径和未来风险。
@@ -118,8 +98,7 @@ python scripts/render_report.py report.md output.pdf --engine auto
 ├── scripts/
 ├── schema.json
 ├── README.md
-├── LICENSE
-├── examples/
+└── LICENSE
 ```
 
 ## 能力边界
