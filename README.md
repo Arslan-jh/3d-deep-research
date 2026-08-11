@@ -1,139 +1,131 @@
 # 3D Deep Research
 
-[简体中文](README.zh-CN.md)
+**用可追溯证据链，把开放问题转化为可验证、可交付的深度研究报告。**
 
-**Evidence-backed deep research for traceable, decision-ready reports.**
+3D Deep Research 是一个单一 Skill。它通过来源账本、Claim 账本、反向证据检索、证据门控、三维分析和严格渲染校验，把开放问题转化为结构化的 Markdown、HTML 与 PDF 研究报告。
 
-3D Deep Research is a single Agent Skill for turning open-ended questions into structured research reports. It combines source and Claim ledgers, counterevidence search, evidence gates, three-dimensional analysis, and validated Markdown, HTML, and PDF delivery.
+> 从来源到判断，从时间线到机制层。
 
-> From sources to claims. From timeline to mechanisms.
+## 为什么需要这个 Skill
 
-![3D Deep Research workflow](media/3d-deep-research-flow.svg)
+普通研究流程往往停在“搜索—汇总”。这个 Skill 让判断路径本身可以被检查：
 
-## Why this Skill
+- **来源可追溯**：记录出处类型、证据作用、独立性、日期和限制。
+- **Claim 可追溯**：每个承重判断都绑定 Source ID、反向材料、置信度、资料缺口和反证条件。
+- **证据门控**：事实、因果、机制、市场判断和未来判断使用不同的最低证据门槛。
+- **机制级分析**：把时间路径、关键力场和内部机制连成解释链，而不是平铺摘要。
+- **交付可验证**：在交付前检查结构、引用、渲染、PDF 文本和视觉完整性。
 
-Most research workflows stop at search and synthesis. This Skill makes the reasoning path inspectable:
+## 3D 三轴方法
 
-- **Source traceability** — record source type, evidence role, independence, dates, and limitations.
-- **Claim traceability** — bind load-bearing judgments to Source IDs, counterevidence, confidence, gaps, and disconfirmation conditions.
-- **Evidence gates** — facts, causes, mechanisms, market judgments, and forecasts use different minimum thresholds.
-- **Mechanism-level analysis** — connect a timeline, a force field, and internal mechanisms instead of producing a flat summary.
-- **Validated delivery** — check structure, citations, rendering, PDF text, and visual integrity before handoff.
-
-## The 3D method
-
-| Dimension | Question | Typical output |
+| 维度 | 要回答的问题 | 典型产物 |
 |---|---|---|
-| **X — Timeline** | How did the subject arrive here? | 4–7 path-changing turning points |
-| **Y — Force field** | Which forces accelerated, constrained, or redirected the path? | 2–4 critical time slices |
-| **Z — Mechanisms** | Why did the key actors and systems behave this way? | 2–5 mechanisms with alternatives |
+| **X——时间线** | 研究对象如何走到今天？ | 4–7 个改变路径的转折点 |
+| **Y——关键力场** | 哪些力量推动、限制或改变了路径？ | 2–4 个关键截面 |
+| **Z——底层机制** | 关键参与者和系统为什么这样行动？ | 2–5 个机制及替代解释 |
 
-The three dimensions must converge into a new, falsifiable judgment. `3D` here means timeline × forces × mechanisms; this is not a 3D graphics, modeling, rendering, or CAD Skill.
+三轴必须交汇为一个新的、可证伪的机制判断。这里的 `3D` 指“时间线 × 力量 × 机制”，不是三维图形、建模、渲染或 CAD Skill。
 
-## Workflow
+## 完整流程
 
 ```text
-Research question
-  → Research contract
-  → Search map: facts / causes / counterevidence
-  → Source ledger + Claim ledger
-  → Evidence gates
-  → X/Y/Z analysis and synthesis
-  → Baseline path, scenario matrix, or leading indicators
-  → Report assembly
-  → Strict validation and browser/PDF rendering
-  → Markdown / HTML / PDF delivery
+研究问题
+  → 研究契约
+  → 检索地图：事实 / 因果 / 反向证据
+  → 来源账本 + Claim 账本
+  → 证据门控
+  → X/Y/Z 三轴分析与交汇
+  → 基准路径、情景矩阵或领先指标
+  → 报告装配
+  → 严格校验与浏览器/PDF 渲染
+  → Markdown / HTML / PDF 交付
 ```
 
-When evidence is insufficient, the workflow returns a continuing state: confirmed findings, evidence gaps, and a next verification path. It does not fill missing support with plausible-sounding claims.
+证据不足时，流程会交付“已确认部分 + 资料缺口 + 下一步验证路径”，不会用听起来合理的内容补齐证据空白。
 
-## Use cases
+## 适用场景
 
-- Company, product, technology, concept, person, event, and industry research.
-- Competitive analysis, due diligence, market and ecosystem research.
-- Technology evaluation and policy or regulatory background research.
-- Historical path reconstruction and mechanism-level explanation.
-- Decision-ready reports with explicit uncertainty and leading indicators.
+- 公司、产品、技术、概念、人物、事件和行业研究。
+- 竞品分析、尽职调查、市场与生态研究。
+- 技术选型、政策或监管背景研究。
+- 历史路径重建和机制级解释。
+- 带有不确定性、反向证据和领先指标的决策报告。
 
-## Install
+## 安装
 
-The repository is intentionally single-Skill, while the public README remains outside the Skill directory.
+仓库根目录就是单一 Skill，同时附带示例报告和发布说明。
 
 ### Codex
 
 ```bash
 git clone https://github.com/Arslan-jh/3d-deep-research.git
-cp -R 3d-deep-research/3d-deep-research ~/.codex/skills/3d-deep-research
+mkdir -p ~/.codex/skills/3d-deep-research
+cp -R 3d-deep-research/. ~/.codex/skills/3d-deep-research/
 ```
 
-Use `$3d-deep-research` or invoke it naturally with a request for deep research, evidence synthesis, competitive analysis, or a research report.
+然后使用 `$3d-deep-research`，或直接提出深度研究、证据综合、竞品分析或研究报告请求。
 
 ### Windows PowerShell
 
 ```powershell
 git clone https://github.com/Arslan-jh/3d-deep-research.git
-Copy-Item -Recurse .\3d-deep-research\3d-deep-research $env:USERPROFILE\.codex\skills\3d-deep-research
+New-Item -ItemType Directory -Force $env:USERPROFILE\.codex\skills\3d-deep-research | Out-Null
+Copy-Item -Recurse .\3d-deep-research\* $env:USERPROFILE\.codex\skills\3d-deep-research
 ```
 
-The same `3d-deep-research/` Skill directory can be copied into another Agent Skills-compatible runtime after its local installation path is confirmed.
+仓库根目录可以复制到其他 Agent Skills 兼容运行时，但应先确认目标运行时的安装路径。
 
-## Example
+## 示例
 
-- [Representative workflow report](examples/3d-deep-research-workflow/report.md)
-- [Rendered HTML report](examples/3d-deep-research-workflow/report.html)
-- [Rendered PDF report](examples/3d-deep-research-workflow/report.pdf)
-- [Editable workflow diagram](media/3d-deep-research-flow.excalidraw)
+- [工作流示例报告](examples/3d-deep-research-workflow/report.md)
+- [HTML 报告](examples/3d-deep-research-workflow/report.html)
+- [PDF 报告](examples/3d-deep-research-workflow/report.pdf)
 
-Example prompts:
+示例请求：
 
 ```text
-Deep research the competitive position and future risks of a technology company.
+深度研究一家科技公司的竞争位置、发展路径和未来风险。
 
-Compare two products through their timeline, market forces, and underlying mechanisms.
+从时间线、市场力量和底层机制三个维度比较两个产品。
 
-Build an evidence-backed industry report with counterarguments and leading indicators.
+生成一份包含反向证据、资料缺口和领先指标的行业研究报告。
 ```
 
-## Quality gates
+## 质量门槛
 
-Before delivery, the Skill checks:
+交付前检查：
 
-1. One H1 and six ordered main sections.
-2. Source IDs resolve to a source ledger.
-3. A Claim evidence matrix exists.
-4. No unresolved template placeholders or unrendered Mermaid remain.
-5. HTML/PDF rendering succeeds and PDF text is extractable.
-6. Visual outputs are checked for missing glyphs, clipping, overlap, and unreadable density.
-
-Run the repository validators against a report:
+1. 只有一个 H1，且六个一级章节按顺序出现。
+2. 正文中的 Source ID 都能解析到来源账本。
+3. 存在 Claim 证据矩阵。
+4. 没有模板占位符或未渲染 Mermaid。
+5. HTML/PDF 能成功生成，且 PDF 文本可提取。
+6. 视觉产物没有缺字、裁切、重叠或难以阅读的过密区域。
 
 ```bash
-python 3d-deep-research/scripts/validate_report.py report.md --strict
-python 3d-deep-research/scripts/render_report.py report.md output.pdf --engine auto
+python scripts/validate_report.py report.md --strict
+python scripts/render_report.py report.md output.pdf --engine auto
 ```
 
-## Repository structure
+## 仓库结构
 
 ```text
 3d-deep-research/
+├── SKILL.md
+├── agents/openai.yaml
+├── assets/
+├── references/
+├── scripts/
+├── schema.json
 ├── README.md
-├── README.zh-CN.md
 ├── LICENSE
-├── media/
 ├── examples/
-└── 3d-deep-research/
-    ├── SKILL.md
-    ├── agents/openai.yaml
-    ├── assets/
-    ├── references/
-    ├── scripts/
-    └── schema.json
 ```
 
-## Boundaries
+## 能力边界
 
-This Skill provides a research method and delivery workflow. It does not guarantee that every source is correct, replace domain experts, or turn a structural validation pass into proof that an external claim is true. Public-source gaps, conflicting evidence, access failures, and uncertain forecasts remain visible in the report.
+这个 Skill 提供研究方法和交付流程，不保证所有来源都正确，不替代领域专家，也不把结构校验等同于外部事实已经被证明。公开信息缺口、冲突证据、访问失败和不确定预测都会在报告中保留。
 
 ## License
 
-MIT. See [LICENSE](LICENSE).
+MIT，见 [LICENSE](LICENSE)。

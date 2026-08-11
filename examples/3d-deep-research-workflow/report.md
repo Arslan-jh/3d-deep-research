@@ -107,12 +107,12 @@ X 轴提供路径，Y 轴提供同时作用的力量，Z 轴提供参与者、�
 
 | Source ID | 来源与日期 | 出处/作用/独立性 | URL/文件与限制 |
 |---|---|---|---|
-| S01 | `3d-deep-research/SKILL.md`；2026-08-11 | primary / fact / independent | 本地 Skill 入口；描述方法与交付边界 |
-| S02 | `3d-deep-research/references/evidence-protocol.md`；2026-08-11 | primary / fact / independent | 本地证据协议；不是外部对象事实 |
-| S03 | `3d-deep-research/references/xyz-method.md`；2026-08-11 | primary / fact / independent | 本地三轴方法；不是外部对象事实 |
-| S04 | `3d-deep-research/schema.json`；2026-08-11 | primary / behavior / independent | 本地结构化状态 Schema；可选中间状态 |
-| S05 | `3d-deep-research/scripts/validate_report.py`；2026-08-11 | primary / behavior / independent | 本地严格校验器；不证明事实真伪 |
-| S06 | `3d-deep-research/scripts/render_report.py`；2026-08-11 | primary / behavior / independent | 本地 HTML/PDF 渲染器；引擎依赖需单独验证 |
+| S01 | `SKILL.md`；2026-08-11 | primary / fact / independent | 本地 Skill 入口；描述方法与交付边界 |
+| S02 | `references/evidence-protocol.md`；2026-08-11 | primary / fact / independent | 本地证据协议；不是外部对象事实 |
+| S03 | `references/xyz-method.md`；2026-08-11 | primary / fact / independent | 本地三轴方法；不是外部对象事实 |
+| S04 | `schema.json`；2026-08-11 | primary / behavior / independent | 本地结构化状态 Schema；可选中间状态 |
+| S05 | `scripts/validate_report.py`；2026-08-11 | primary / behavior / independent | 本地严格校验器；不证明事实真伪 |
+| S06 | `scripts/render_report.py`；2026-08-11 | primary / behavior / independent | 本地 HTML/PDF 渲染器；引擎依赖需单独验证 |
 
 ### A2 Claim 证据矩阵
 
@@ -129,7 +129,7 @@ X 轴提供路径，Y 轴提供同时作用的力量，Z 轴提供参与者、�
 
 ### A4 视觉表达说明
 
-本示例用一条流程图表达“研究设定—证据门控—三轴分析—交付验证”的运行链路。没有加入量化图，因为当前示例没有可比较的外部数值；完整流程架构见仓库中的 `3d-deep-research-flow.svg`。
+本示例用文字步骤表达“研究设定—证据门控—三轴分析—交付验证”的运行链路。没有加入量化图或媒体附件，因为当前示例没有可比较的外部数值；完整方法架构以 `SKILL.md` 与 references 中的流程说明为准。
 
 ## 附录二：方法说明
 
