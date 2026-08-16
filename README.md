@@ -14,6 +14,8 @@
 - **Claim 可追溯**：每个承重判断都绑定 Source ID、反向材料、置信度、资料缺口和反证条件。
 - **证据门控**：事实、因果、机制、市场判断和未来判断使用不同的最低证据门槛。
 - **机制级分析**：把时间路径、关键力场和内部机制连成解释链，而不是平铺摘要。
+- **事实审计**：交付前逐句核对引用归属、复核每个数字，并把「原文摘录 ↔ 报告表述」的对照存档进附录，判断路径本身可以被复核。
+- **Claim 有生命周期**：置信度按锚点标定，证据按时效期衰减，反证条件被触发时可以回到账本复查，而不是一次性快照。
 - **交付可验证**：在交付前检查结构、引用、渲染、PDF 文本和视觉完整性。
 
 ## 3D 三轴方法
@@ -30,13 +32,14 @@
 
 ```text
 研究问题
-  → 研究契约
-  → 检索地图：事实 / 因果 / 反向证据
+  → 研究契约（落盘 + 深度档位）
+  → 检索地图：事实 / 因果 / 反向证据（落盘）
   → 来源账本 + Claim 账本
   → 证据门控
   → X/Y/Z 三轴分析与交汇
   → 基准路径、情景矩阵或领先指标
   → 报告装配
+  → 归属审计与数字复核（附录 A5/A6 存档）
   → 严格校验与浏览器/PDF 渲染
   → Markdown / HTML / PDF 交付
 ```
@@ -77,10 +80,11 @@ npx skills add Arslan-jh/3d-deep-research --skill 3d-deep-research
 
 1. 只有一个 H1，且六个一级章节按顺序出现。
 2. 正文中的 Source ID 都能解析到来源账本。
-3. 存在 Claim 证据矩阵。
-4. 没有模板占位符或未渲染 Mermaid。
-5. HTML/PDF 能成功生成，且 PDF 文本可提取。
-6. 视觉产物没有缺字、裁切、重叠或难以阅读的过密区域。
+3. 存在 Claim 证据矩阵，且每个 Claim 的置信度取值符合标定（高/中/低）。
+4. 附录包含 A5 引用摘录存档与 A6 归属审计与数字复核记录（结构校验只能证明“编号对得上”，事实审计靠这两份存档留痕）。
+5. 没有模板占位符或未渲染 Mermaid。
+6. HTML/PDF 能成功生成，且 PDF 文本可提取。
+7. 视觉产物没有缺字、裁切、重叠或难以阅读的过密区域。
 
 ```bash
 python scripts/validate_report.py report.md --strict
@@ -94,6 +98,11 @@ python scripts/render_report.py report.md output.pdf --engine auto
 ├── SKILL.md
 ├── agents/openai.yaml
 ├── assets/
+│   ├── report-template.md
+│   ├── research-contract-template.md
+│   ├── retrieval-map-template.md
+│   ├── claim-ledger-template.csv
+│   └── report.css
 ├── references/
 ├── scripts/
 ├── schema.json
