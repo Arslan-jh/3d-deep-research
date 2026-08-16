@@ -1,5 +1,12 @@
 #!/usr/bin/env python3
-"""Validate a 3d-deep-research Markdown report and optionally its PDF."""
+"""Validate a 3d-deep-research Markdown report and optionally its PDF.
+
+Structural checks cover sections, citations, placeholders, readability and
+chart-allocation patches. Evidence-loop checks (confidence calibration and
+the attribution-audit / excerpt-archive appendix sections) enforce the
+traces of the pre-delivery fact audit; they cannot verify the facts
+themselves.
+"""
 
 from __future__ import annotations
 
@@ -173,6 +180,37 @@ def validate_markdown(
     ):
         errors.append("Claim evidence matrix with Cxx rows was not found.")
 
+    # --- Evidence-loop checks (references/evidence-protocol.md:
+    # --- confidence calibration, attribution audit, excerpt archive) ---
+
+    # Every Cxx row of the A2 claim matrix must carry a calibrated
+    # confidence level in its 置信度/独立性 cell (the 5th cell of the row).
+    # Scope the scan to the A2 section so that Cxx rows in A5/A6 audit
+    # tables are not mistaken for matrix rows.
+    a2_match = re.search(
+        r"^###\s+A2\b[^\n]*\n(.*?)(?=^###\s|\Z)",
+        md_text,
+        flags=re.MULTILINE | re.DOTALL,
+    )
+    a2_text = a2_match.group(1) if a2_match else ""
+    claim_rows = list(
+        re.finditer(r"^\|\s*C\d{2,}\s*\|[^\n]*", a2_text, flags=re.MULTILINE)
+    )
+    for row in claim_rows:
+        cells = [cell.strip() for cell in row.group(0).strip("|").split("|")]
+        if len(cells) < 5:
+            continue
+        confidence_cell = cells[4]
+        if not re.search(
+            r"(?:高|中|低|high|medium|low)", confidence_cell, flags=re.IGNORECASE
+        ):
+            claim_id = re.search(r"(C\d{2,})", row.group(0))
+            warnings.append(
+                f"Claim row {claim_id.group(1) if claim_id else '?'} has no "
+                "calibrated confidence level (高/中/低 or high/medium/low) "
+                "in its 置信度 cell; see evidence-protocol.md 「置信度标定」."
+            )
+
     figures = re.findall(
         r"<figure\b.*?</figure>",
         md_text,
@@ -195,7 +233,20 @@ def validate_markdown(
     # --- Patch-aware rules (references/chart-allocation.md and
     # --- references/readability-style.md) ---
 
-    body_text, _ = _split_body_and_appendix(md_text)
+    body_text, appendix_text = _split_body_and_appendix(md_text)
+
+    # Evidence loop: the appendix must carry the attribution-audit log and
+    # the excerpt archive (assets/report-template.md A5/A6). These are the
+    # only machine-checkable traces of the pre-delivery fact audit.
+    for marker, label in (
+        ("引用摘录存档", "A5 引用摘录存档"),
+        ("归属审计", "A6 归属审计与数字复核记录"),
+    ):
+        if appendix_text and marker not in appendix_text:
+            warnings.append(
+                f"Appendix is missing the {label} section "
+                "(evidence-protocol.md: 归属审计 / 摘录存档)."
+            )
 
     # Image existence: every local image referenced by <img src> or ![]()
     # must resolve relative to the report file.
@@ -280,6 +331,7 @@ def validate_markdown(
         "main_sections": len(main_sections),
         "source_definitions": len(source_definitions),
         "source_references": len(source_references),
+        "claim_rows": len(claim_rows),
         "figures": len(figures),
         "characters": len(md_text),
     }
