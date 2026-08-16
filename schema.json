@@ -354,6 +354,21 @@
         },
         "disconfirmation_condition": {
           "$ref": "#/$defs/nonEmptyString"
+        },
+        "stale_after": {
+          "type": "string",
+          "format": "date",
+          "description": "Evidence staleness horizon by claim type; claims past this date must be revisited."
+        },
+        "revisit_status": {
+          "enum": [
+            "not-due",
+            "due",
+            "revisited-holds",
+            "overturned",
+            "partially-revised"
+          ],
+          "description": "Claim lifecycle status recorded on each revisit."
         }
       }
     },
